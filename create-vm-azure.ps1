@@ -1,10 +1,10 @@
-$gitrepo = "https://github.com/mubarak1988/app-service-web-dotnet-get-started.git"
+$gitrepo = "https://github.com/mubarak1988/webAppAzure.git"
 #$gittoken = "$Env:GIT_TOKEN"
-$webappname = "webapp1259284339"
+$webappname = "webApp"
 #$location = "westeurope"
 # VM configuration object
 $ResourceGroupName = "geekResourceGroup"
-$VmName = "Demo-vm-from-gh"
+$VmName = "vm-from-gh"
 
 # Login to Azure using Service Principal credentials from Github Secrets
 Write-Output "Logging in to Azure with a service principal..."
@@ -43,8 +43,7 @@ az appservice plan create -g $ResourceGroupName -n $webappname --sku F1
 # Create a web app.
 az webapp create -g $ResourceGroupName -p $webappname -n $webappname --runtime "DOTNET|5.0"
 
-az webapp deployment source config --branch master --app-working-dir --repo-url gitrepo --name $webappname --resource-group $ResourceGroupName
+az webapp deployment source config --branch master --repo-url $gitrepo --app-working-dir dotnetcorewebapp --name $webappname --resource-group $ResourceGroupName
 
 Write-Output "Completed"
-
 
